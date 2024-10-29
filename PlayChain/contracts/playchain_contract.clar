@@ -86,3 +86,14 @@
 (define-read-only (get-fan-rewards (fan-id principal))
   (ok (default-to u0 (map-get? fan-rewards fan-id)))
 )
+
+;; Function to get a player's details
+(define-read-only (get-player-details (name (string-ascii 100)))
+  (let 
+    ((player-entry { name: name }))
+    (match (map-get? player-map player-entry)
+      player (ok player)
+      (err u3)  ;; Player not found
+    )
+  )
+)
