@@ -27,3 +27,21 @@
     (map-delete active-players value)
     true)
 )
+
+;; Function to add a new player 
+(define-public (add-player (name (string-ascii 100)) (salary uint))
+  (let 
+    ((player-entry { name: name }))
+    (begin
+      ;; Input validation
+      (asserts! (> salary u0) (err u1))
+      (asserts! (is-none (map-get? player-map player-entry)) (err u2))
+      ;; Check if player is already active
+      (asserts! (is-none (map-get? active-players name)) (err u3))
+      ;; Add player
+      (map-set player-map player-entry { salary: salary, active: true })
+      (add-to-set name)
+      (ok true)
+    )
+  )
+)
