@@ -61,3 +61,23 @@
     )
   )
 )
+
+;; Reward for Fan based on fan engagement 
+(define-public (reward-fan (fan-id principal) (engagement uint))
+  (let 
+    (
+      (reward-amount (* engagement REWARD_MULTIPLIER))
+      (current-reward (default-to u0 (map-get? fan-rewards fan-id)))
+    )
+    (begin
+      ;; Input validation
+      (asserts! (> engagement u0) (err u1))
+      (asserts! (<= reward-amount MAX_REWARD) (err u2))
+      ;; Check for potential overflow
+      (asserts! (<= (+ current-reward reward-amount) MAX_REWARD) (err u3))
+      ;; Update rewards
+      (map-set fan-rewards fan-id (+ current-reward reward-amount))
+      (ok reward-amount)
+    )
+  )
+)
