@@ -45,3 +45,19 @@
     )
   )
 )
+
+;; Function to remove a player 
+(define-public (remove-player (name (string-ascii 100)))
+  (let 
+    ((player-entry { name: name }))
+    (begin
+      ;; Check if player exists and is active
+      (asserts! (is-some (map-get? player-map player-entry)) (err u2))
+      (asserts! (default-to false (map-get? active-players name)) (err u3))
+      ;; Remove player
+      (map-set player-map player-entry { salary: u0, active: false })
+      (remove-from-set name)
+      (ok true)
+    )
+  )
+)
