@@ -81,3 +81,8 @@
     )
   )
 )
+
+;; Get rewards for a specific fan 
+(define-read-only (get-fan-rewards (fan-id principal))
+  (ok (default-to u0 (map-get? fan-rewards fan-id)))
+)
