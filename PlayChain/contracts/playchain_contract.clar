@@ -14,3 +14,16 @@
   }
 )
 
+;; Helper function to add to active players
+(define-private (add-to-set (value (string-ascii 100)))
+  (begin 
+    (map-set active-players value true)
+    true)
+)
+
+;; Helper function to remove from active players
+(define-private (remove-from-set (value (string-ascii 100)))
+  (begin
+    (map-delete active-players value)
+    true)
+)
