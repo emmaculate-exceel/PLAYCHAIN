@@ -97,3 +97,11 @@
     )
   )
 )
+
+;; Function to check if player is active
+(define-read-only (is-player-active (name (string-ascii 100)))
+  (match (map-get? active-players name)
+    active (ok active)
+    (ok false)
+  )
+)
